@@ -6,28 +6,31 @@ import styles from './../styles/Styles'
 export default class OperationScreen extends React.Component {
 
   async componentDidMount() {
+    Notifications.cancelAllScheduledNotificationsAsync()
+
     let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (Constants.isDevice && result.status === 'granted') {
       console.log('Notification permissions granted.')
     }
 
     const localNotification = {
-        title: 'Hola',
-        body: 'Hola', 
+        title: '¿Actualizaste tus gastos hoy?',
+        body: '¡Usala ahora! ', 
         ios: {
           sound: true 
         }
       };
 
-    let t = new Date();
-    t.setSeconds(t.getSeconds() + 2);
+/*    let t = new Date();
+    t.setSeconds(t.getSeconds() + 10);
 
     const schedulingOptions = {
         time: t,
-        repeat: 'minute'
+        repeat: 'week'
     };
+*/
+    Notifications.presentLocalNotificationAsync(localNotification);
 
-    Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
   }
   
   constructor(props) {
