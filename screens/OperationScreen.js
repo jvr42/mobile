@@ -10,6 +10,24 @@ export default class OperationScreen extends React.Component {
     if (Constants.isDevice && result.status === 'granted') {
       console.log('Notification permissions granted.')
     }
+
+    const localNotification = {
+        title: 'Hola',
+        body: 'Hola', 
+        ios: {
+          sound: true 
+        }
+      };
+
+    let t = new Date();
+    t.setSeconds(t.getSeconds() + 2);
+
+    const schedulingOptions = {
+        time: t,
+        repeat: 'minute'
+    };
+
+    Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
   }
   
   constructor(props) {
